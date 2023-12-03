@@ -16,3 +16,4 @@ fun Round.canBePlayedWith(redCubes: Int,greenCubes: Int,blueCubes: Int) =
 
 
 fun sumIdsOfCompatibleGames(games: List<Game>) = games.sumOf { it.id }
+

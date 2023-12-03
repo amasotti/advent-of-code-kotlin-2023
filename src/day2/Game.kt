@@ -12,14 +12,11 @@ data class Round(
 
     fun totalCubes(): Int = blueCubes + redCubes + greenCubes
 
-
+    fun power(): Int = redCubes * greenCubes * blueCubes
 }
 
 data class Game(val id: Int,val rounds: List<Round>)
 {
-
-    //fun totalCubes(): Int =  rounds.sumOf { it.totalCubes() }
-
     fun totalInterations(): Int = rounds.size
 
     override fun toString(): String {
@@ -27,7 +24,6 @@ data class Game(val id: Int,val rounds: List<Round>)
         val iterationRepr = rounds.joinToString(separator = "") { it.toString() }.prependIndent("\t")
 
         return "Game $id: \n" +
-                //"\tTotal cubes: ${totalCubes()}\n" +
                 "\tTotal Rounds: ${totalInterations()}\n" +
                 "\tRounds:\n" + iterationRepr
     }

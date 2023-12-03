@@ -20,6 +20,10 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
 
 - [Advent of Code 2023 in Kotlin][blog]
 
+## Note
+
+I have one branch per day, so you'll find the code and solution to e.g. day 1 in `day1` branch.
+
 [aoc]: https://adventofcode.com
 [docs]: https://kotlinlang.org/docs/home.html
 [github]: https://github.com/amasotti

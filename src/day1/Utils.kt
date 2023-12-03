@@ -8,9 +8,6 @@ import kotlin.io.path.readLines
 /** Reads lines from the given input txt file. */
 fun readInput(name: String) = Path("src/day1/$name.txt").readLines()
 
-/** Converts string to md5 hash. */
-fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16).padStart(32, '0')
-
 /** Represents a map of strings to integers. */
 val stringIntMap = mapOf(
     "one" to 1,

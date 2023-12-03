@@ -9,4 +9,5 @@ import kotlin.io.path.readLines
 fun readAdventInput(day: Int, name: String) = Path("src/day$day/$name.txt").readLines()
 
 
-fun printSectionSeparator() = println("".padEnd(50, '-'))
+fun printSectionSeparator(symbol: Char = '-', padding: Int = 50) =
+    println("".padEnd(padding, symbol))

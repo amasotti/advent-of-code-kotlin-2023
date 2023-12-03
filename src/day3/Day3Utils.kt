@@ -18,9 +18,9 @@ fun parseInputToMatrix(): Matrix {
     return Matrix(input.map { it.toList() })
 }
 
-fun getNumbersAndIndex(): List<NumberInMatrix> {
+fun getNumbersAndIndex(): List<Number> {
     val input = readAdventInput(DAY, FILE)
-    val indexedNumbers = mutableListOf<NumberInMatrix>()
+    val indexedNumbers = mutableListOf<Number>()
 
     input.forEachIndexed { rowIndex, line ->
         val pattern = Regex("[0-9]+")
@@ -28,7 +28,7 @@ fun getNumbersAndIndex(): List<NumberInMatrix> {
         matches.forEach { match ->
             val start = Coordinate(rowIndex, match.range.first)
             val end = Coordinate(rowIndex, match.range.last)
-            val n = NumberInMatrix(match.value.toInt(), start, end)
+            val n = Number(match.value.toInt(), start, end)
             indexedNumbers.add(n)
         }
     }

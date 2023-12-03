@@ -1,50 +1,45 @@
 package day3
 
-
 import shared.readAdventInput
 
-const val DAY = 3
-const val FILE = "Day3"
+object Constants {
+    const val DAY = 3
+    const val FILE = "Day3"
+}
 
 
 /**
  * Parses the input file into a matrix of characters
  *
- * My idea here is that perhaps we can check where there are numbers
- * and then check in all directions for a simbol that is not a dot
+ * My idea here is that perhaps we can check where there are numbers and
+ * then check in all directions for a simbol that is not a dot
  */
-fun parseInputToMatrix(): Matrix {
-    val input = readAdventInput(DAY, FILE)
-    return Matrix(input.map { it.toList() })
-}
+fun parseInputToMatrix(): Matrix =
+    readAdventInput(Constants.DAY, Constants.FILE)
+        .map { it.toList() }
+        .let { Matrix(it) }
 
 fun getNumbersAndIndex(): List<Number> {
-    val input = readAdventInput(DAY, FILE)
-    val indexedNumbers = mutableListOf<Number>()
+    val input = readAdventInput(Constants.DAY, Constants.FILE)
 
-    input.forEachIndexed { rowIndex, line ->
-        val pattern = Regex("[0-9]+")
-        val matches = pattern.findAll(line)
-        matches.forEach { match ->
-            val start = Coordinate(rowIndex, match.range.first)
-            val end = Coordinate(rowIndex, match.range.last)
-            val n = Number(match.value.toInt(), start, end)
-            indexedNumbers.add(n)
+    return input
+        .asSequence()
+        .mapIndexed { rowIndex, line -> rowIndex to Regex("[0-9]+").findAll(line) }
+        .flatMap { (rowIndex, matches) ->
+            matches.map { match ->
+                val start = Coordinate(rowIndex, match.range.first)
+                val end = Coordinate(rowIndex, match.range.last)
+                Number(match.value.toInt(), start, end)
+            }
         }
-    }
-
-    return indexedNumbers
+        .toList()
 }
 
-fun Char.isValidSymbol() = !this.isDigit() && this != '.'
+fun Char.isValidSymbol(): Boolean = !isDigit() && this != '.'
 
-fun Matrix.prettyPrintMatrix(transform: (row: Int, col: Int) -> String) {
-    matrix.forEachIndexed { row, line ->
-        line.forEachIndexed { col, _ ->
-            print(transform(row, col))
-        }
-        println()
-    }
+fun Matrix.prettyPrintMatrix(transform: (Int, Int) -> String) = matrix.forEachIndexed { row, line ->
+    line.forEachIndexed { col, _ -> print(transform(row, col)) }
+    println()
 }
 
 
@@ -54,17 +49,28 @@ fun Matrix.prettyPrintMatrix(transform: (row: Int, col: Int) -> String) {
  */
 fun printMatrixMarkingPartNumbers() {
     val matrix = parseInputToMatrix()
-    val indexedNums = getNumbersAndIndex()
+    val numbers = getNumbersAndIndex()
 
-    val numbers = indexedNums.map { it.number }
-    println(numbers)
-
-    val partNumbers = indexedNums.filter { it.isPartNumber(matrix) }
+    val partNumbers = numbers.filter { it.isPartNumber(matrix) }
 
     matrix.prettyPrintMatrix { row, col ->
         val coordinate = Coordinate(row, col)
         val isPartNumber = partNumbers.any { it.start == coordinate || it.end == coordinate }
         if (isPartNumber) "\u001B[31m${matrix[coordinate]}\u001B[0m" else matrix[coordinate].toString()
     }
+}
 
+
+fun gearRatio(coord: Coordinate, numbers: List<Number>): Int {
+
+    val candidates = numbers.filter {number ->
+        number inExpandedBounds coord
+    }
+
+    if (candidates.size != 2) return 0
+
+    val number1 = candidates[0].number
+    val number2 = candidates[1].number
+
+    return number1 * number2
 }

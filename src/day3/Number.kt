@@ -1,11 +1,9 @@
 package day3
 
 data class Number(val number: Int, val start: Coordinate, val end: Coordinate) {
-    infix fun inBounds(coordinate: Coordinate): Boolean =
-        (start.row..end.row).contains(coordinate.row) && (start.col..end.col).contains(coordinate.col)
-
     infix fun inExpandedBounds(coordinate: Coordinate): Boolean =
-        (start.row - 1..end.row + 1).contains(coordinate.row) && (start.col - 1..end.col + 1).contains(coordinate.col)
+        coordinate.isInBound(Coordinate(start.row - 1, start.col - 1), Coordinate(end.row + 1, end.col + 1))
+
 }
 
 fun Number.isPartNumber(matrix: Matrix): Boolean {
@@ -28,11 +26,5 @@ fun Number.isPartNumber(matrix: Matrix): Boolean {
 }
 
 fun List<Number>.sumPartNumbers(matrix: Matrix): Int {
-    var sumOfPartNumbers = 0
-    this.forEach {
-        if (it.isPartNumber(matrix)) {
-            sumOfPartNumbers += it.number
-        }
-    }
-    return sumOfPartNumbers
+    return filter { it.isPartNumber(matrix) }.sumOf { it.number }
 }

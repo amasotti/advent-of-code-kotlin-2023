@@ -1,6 +1,9 @@
 package day3
 
-data class Coordinate(val row: Int, val col: Int)
+data class Coordinate(val row: Int, val col: Int) {
+    fun isInBound(start: Coordinate, end: Coordinate): Boolean =
+        (start.row..end.row).contains(row) && (start.col..end.col).contains(col)
+}
 
 
 fun Coordinate.neighbors() = listOf(

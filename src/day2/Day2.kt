@@ -2,9 +2,7 @@ package day2
 
 import shared.printSectionSeparator
 
-/**
- * Main entry point
- */
+
 fun main() {
     part1(12,13,14)
     part2()

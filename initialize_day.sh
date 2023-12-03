@@ -17,8 +17,9 @@ mkdir -p src/day$1
 echo "${BLUE}Created directory src/day$1${RESET_COLOR}"
 
 # Create challenge file
-#echo "${BLUE}Creating challenge description file${RESET_COLOR}"
+echo "${BLUE}Creating challenge description file${RESET_COLOR}"
 #curl https://adventofcode.com/2023/day/$1 > src/day$1/Day$1_challenge.txt
+touch src/day$1/Day$1_challenge.txt
 
 # Create test file
 echo "${BLUE}Creating test file${RESET_COLOR}"

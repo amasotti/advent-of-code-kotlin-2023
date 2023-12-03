@@ -24,6 +24,11 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
 
 I have one branch per day, so you'll find the code and solution to e.g. day 1 in `day1` branch.
 
+- [Day 1](https://github.com/amasotti/advent-of-code-kotlin-2023/tree/day1)
+- [Day 2](https://github.com/amasotti/advent-of-code-kotlin-2023/tree/day2)
+- [Day 3](https://github.com/amasotti/advent-of-code-kotlin-2023/tree/day3)
+
+
 [aoc]: https://adventofcode.com
 [docs]: https://kotlinlang.org/docs/home.html
 [github]: https://github.com/amasotti

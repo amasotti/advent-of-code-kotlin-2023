@@ -18,6 +18,48 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
     .padStart(32, '0')
 
 /**
- * The cleaner shorthand for printing output.
- */
-fun Any?.println() = println(this)
+ * Represents a map of strings to integers.
+*/
+val stringIntMap = mapOf(
+    "one" to 1,
+    "two" to 2,
+    "three" to 3,
+    "four" to 4,
+    "five" to 5,
+    "six" to 6,
+    "seven" to 7,
+    "eight" to 8,
+    "nine" to 9,
+)
+
+fun String.decodeNumber(): Int? {
+    return stringIntMap[this.lowercase()]
+}
+
+fun String.findFirstHiddenNumber() : Pair<Int?,Int?> {
+    val matches = Regex("(zero|one|two|three|four|five|six|seven|eight|nine)")
+    .findAll(this)
+    .toList()
+
+    val firstDigit = matches.firstOrNull()?.value?.decodeNumber()
+    val index = matches.firstOrNull()?.range?.first
+
+    return Pair(firstDigit, index)
+}
+
+fun String.findLastHiddenNumber(): Pair<Int?,Int?> {
+    val matches = Regex("(zero|one|two|three|four|five|six|seven|eight|nine)")
+    .findAll(this)
+    .toList()
+
+    val firstDigit = matches.lastOrNull()?.value?.decodeNumber()
+    val index = matches.lastOrNull()?.range?.first
+
+    return Pair(firstDigit, index)
+}
+
+fun MutableList<Pair<Int, Int>>.addHiddenNumber(extractedNumber: Pair<Int?, Int?>) {
+    if (extractedNumber.first != null && extractedNumber.second != null) {
+        add(Pair(extractedNumber.first!!, extractedNumber.second!!))
+    }
+}

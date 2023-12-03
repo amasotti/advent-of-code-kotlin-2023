@@ -1,35 +1,29 @@
 package day3
 
 
-fun part1() {
-    val matrix = parseInputToMatrix()
-    val indexedNums = getNumbersAndIndex()
+fun part1(inputMatrix: Matrix, indexedNums: List<Number>) {
+    val sumOfPartNumbers = indexedNums.sumPartNumbers(inputMatrix)
 
-    val sumOfPartNumbers = indexedNums.sumPartNumbers(matrix)
-
-    // check(sumOfPartNumbers == 4361) { "Wrong answer: $sumOfPartNumbers" } // test input
+    // check(part1Result == 4361) { "Wrong answer: $part1Result" } // test input
     check(sumOfPartNumbers == 531561) { "Wrong answer: $sumOfPartNumbers" }
-
-    println(indexedNums.sumPartNumbers(matrix))
+    println(sumOfPartNumbers)
 }
 
-fun part2() {
-    val matrix = parseInputToMatrix()
-    val indexedNums = getNumbersAndIndex().filter { it.isPartNumber(matrix) }
+fun part2(inputMatrix: Matrix, indexedNums: List<Number>) {
+    val filteredIndexedNums = indexedNums.filter { it.isPartNumber(inputMatrix) }
+    val sumOfGears = inputMatrix.findGearRatios(filteredIndexedNums)
 
-    val gearRatioSum = matrix.findGearRatios(indexedNums)
-
-    check(gearRatioSum == 83279367) { "Wrong answer: $gearRatioSum" }
-    println(gearRatioSum)
+    check(sumOfGears == 83279367) { "Wrong answer: $sumOfGears" }
+    println(sumOfGears)
 }
 
 
 fun main() {
-    part1()
-    part2()
+    val inputMatrix = parseInputToMatrix()
+    val indexedNums = getNumbersAndIndex()
+
+    part1(inputMatrix, indexedNums)
+    part2(inputMatrix, indexedNums)
 }
-
-
-
 
 
